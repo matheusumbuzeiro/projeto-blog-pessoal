@@ -17,14 +17,19 @@ private temaService: TemaService
 async findAll(): Promise<Postagem[]> {
         return await this.postagemRepository.find({
             relations:{
-                tema: true
+                tema: true,
+                usuario: true
             }
         });
     }
 
 async findById(id: number): Promise<Postagem> {
     const postagem = await this.postagemRepository.findOne({
-        where: { id }
+        where: { id },
+        relations:{
+                tema: true,
+                usuario: true
+            }
     });
     
 
@@ -37,7 +42,11 @@ async findById(id: number): Promise<Postagem> {
   return await this.postagemRepository.find({
     where: {
       titulo: ILike(`%${titulo}%`)
-    }
+    },
+    relations:{
+                tema: true,
+                usuario: true
+            }
   })
 }
 
